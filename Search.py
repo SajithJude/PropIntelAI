@@ -585,7 +585,7 @@ def create_pdf(df, dfs, taxDFs, crime_data, agent_image_stream, company_logo_str
     # Initialize PDF
 #  def create_pdf(df):
     # Initialize PDF
-    pdf_path = "CMA_Report.pdf"
+    pdf_path = "./CMA_Report.pdf"
     pdf = SimpleDocTemplate(
         pdf_path,
         pagesize=letter,
@@ -1311,6 +1311,21 @@ if st.button('Search'):
             file_name="./CMA_Report.pdf",
             mime='application/octet-stream'
         )
+
+
+        if os.path.exists('./CMA_Report.pdf'):
+    # Read the PDF file in binary mode
+            with open('./CMA_Report.pdf', "rb") as pdf_file:
+                # Create a download button and the file will be downloaded when clicked
+                st.download_button(
+                    label="Download CMA Report",
+                    data=pdf_file,
+                    file_name="CMA_Report.pdf",
+                    mime="application/octet-stream"
+                )
+        else:
+            st.error("The file CMA_Report.pdf was not found.")
+
 
                 
     else:
