@@ -581,11 +581,11 @@ def footer(canvas, doc, agent_details, agent_image_stream, company_logo_stream):
     # footer_table.drawOn(canvas, doc.leftMargin, footer_height)
 
 # Function to create PDF
-def create_pdf(df, dfs, taxDFs, crime_data, agent_image_stream, company_logo_stream,df_comparables,agent_details):
+def create_pdf(df, dfs, taxDFs, crime_data, agent_image_stream, company_logo_stream,df_comparables,agent_details,clientname):
     # Initialize PDF
 #  def create_pdf(df):
     # Initialize PDF
-    pdf_path = "./CMA_Report.pdf"
+    pdf_path = f"./data/{clientname}.pdf"
     pdf = SimpleDocTemplate(
         pdf_path,
         pagesize=letter,
@@ -1076,7 +1076,7 @@ with col3:
 
 # # Editable cost matrix
 
-
+clientname = st.text_input("Client_name")
 dfs = []
 taxDFs = []
 
@@ -1296,10 +1296,10 @@ if st.button('Search'):
         # crime_data
         
         # if st.button('Generate PDF'):
-        pdf_pat = create_pdf(df, dfs,taxDFs, crime_data ,agent_image_stream, company_logo_stream, df_comparables, agent_details)
+        pdf_pat = create_pdf(df, dfs,taxDFs, crime_data ,agent_image_stream, company_logo_stream, df_comparables, agent_details,clientname)
         
         # Display PDF in Streamlit
-        with open(pdf_pat, "rb") as f:
+        with open(f"./{pdf_pat}", "rb") as f:
             base64_pdf = base64.b64encode(f.read()).decode('utf-8')
         pdf_display = f'<embed src="data:application/pdf;base64,{base64_pdf}" width="700" height="1000" type="application/pdf">'
         st.markdown(pdf_display, unsafe_allow_html=True)
@@ -1308,19 +1308,19 @@ if st.button('Search'):
         st.download_button(
             label="Download PDF Report",
             data=base64_pdf,
-            file_name="./CMA_Report.pdf",
+            file_name=f"./data/{clientname}.pdf",
             mime='application/octet-stream'
         )
 
 
-        if os.path.exists('./CMA_Report.pdf'):
+        if os.path.exists(f"./data/{clientname}.pdf"):
     # Read the PDF file in binary mode
-            with open('./CMA_Report.pdf', "rb") as pdf_file:
+            with open(f"./data/{clientname}.pdf", "rb") as pdf_file:
                 # Create a download button and the file will be downloaded when clicked
                 st.download_button(
                     label="Download CMA Report",
                     data=pdf_file,
-                    file_name="CMA_Report.pdf",
+                    file_name=f"{clientname}_CMA.pdf",
                     mime="application/octet-stream"
                 )
         else:
