@@ -62,7 +62,7 @@ def create_map_image(dataframe):
     return buf
 
 st.write(os.listdir('./'))
-st.write(os.listdir(''))
+# st.write(os.listdir(''))
 
 
 
@@ -521,12 +521,12 @@ def footer(canvas, doc, agent_details, agent_image_stream, company_logo_stream):
     if agent_image_stream:
         agent_image = Image(agent_image_stream)
     else:
-        agent_image = Image('bob.png')  # Fallback to a default image
+        agent_image = Image('./bob.png')  # Fallback to a default image
 
     if company_logo_stream:
         company_logo = Image(company_logo_stream)
     else:
-        company_logo = Image('265900.png')  # Fallback to a default image
+        company_logo = Image('./265900.png')  # Fallback to a default image
 
     # Modify the agent details paragraph with the updated information
     agent_info_paragraph = Paragraph(f'''
@@ -1308,7 +1308,7 @@ if st.button('Search'):
         st.download_button(
             label="Download PDF Report",
             data=base64_pdf,
-            file_name="CMA_Report.pdf",
+            file_name="./CMA_Report.pdf",
             mime='application/octet-stream'
         )
 
