@@ -61,6 +61,8 @@ def create_map_image(dataframe):
 
     return buf
 
+st.write(os.listdir('./'))
+
 
 # Assuming df_comparables is a DataFrame with the Latitude and Longitude columns
 
